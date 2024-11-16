@@ -23,4 +23,22 @@ class OperatorTest : FunSpec({
         result3 shouldBe Operator.MULTIPLY
         result4 shouldBe Operator.DIVIDE
     }
+
+    test("execute() 메서드 테스트") {
+        // given
+        val left = 10L
+        val right = 5L
+
+        // when
+        val result1 = Operator.ADD.execute(left, right)
+        val result2 = Operator.SUBTRACT.execute(left, right)
+        val result3 = Operator.MULTIPLY.execute(left, right)
+        val result4 = Operator.DIVIDE.execute(left, right)
+
+        // then
+        result1 shouldBe 15
+        result2 shouldBe 5
+        result3 shouldBe 50
+        result4 shouldBe 2
+    }
 })
