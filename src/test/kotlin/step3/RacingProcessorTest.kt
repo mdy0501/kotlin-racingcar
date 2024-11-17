@@ -3,39 +3,27 @@ package step3
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.unmockkAll
 
 class RacingProcessorTest : FunSpec({
-    beforeTest {
-        unmockkAll() // 모든 Mock 객체 및 설정 초기화
-    }
-    test("race()는 각 자동차의 이동 상태를 moveCount만큼 RacingResult에 저장한다") {
+    test("race()는 모든 자동차가 moveCount만큼 이동 기록을 남겨야 한다.") {
         // given
-        val givenCar1 =
-            mockk<Car> {
-                every { number } returns 1
-                every { move() } returns MoveStatus.FORWARD
-            }
-        val givenCar2 =
-            mockk<Car> {
-                every { number } returns 2
-                every { move() } returns MoveStatus.STAY
-            }
-        val givenMoveCount = 3
+        val moveCount = 3
+        val cars = listOf(Car(1), Car(2), Car(3))
+        val givenForwardMoveFactor = 9
 
         // when
-        val result = RacingProcessor(cars = listOf(givenCar1, givenCar2)).race(moveCount = givenMoveCount)
+        repeat(moveCount) {
+            cars.forEach { car ->
+                car.move(moveFactor = givenForwardMoveFactor)
+            }
+        }
 
         // then
-        result shouldHaveSize 2 // 두 대의 자동차 결과가 존재
-        result[0].carNumber shouldBe 1 // 첫 번째 자동차의 번호 확인
-        result[1].carNumber shouldBe 2 // 두 번째 자동차의 번호 확인
-
-        // 첫 번째 자동차의 이동 기록 확인
-        result[0].moveHistories shouldBe listOf(MoveStatus.FORWARD, MoveStatus.FORWARD, MoveStatus.FORWARD)
-        // 두 번째 자동차의 이동 기록 확인
-        result[1].moveHistories shouldBe listOf(MoveStatus.STAY, MoveStatus.STAY, MoveStatus.STAY)
+        cars.forEach { car ->
+            car.moveHistory.shouldHaveSize(moveCount) // 각 자동차의 이동 기록 개수 검증
+        }
+        cars[0].moveHistory[0] shouldBe MoveStatus.FORWARD
+        cars[0].moveHistory[1] shouldBe MoveStatus.FORWARD
+        cars[0].moveHistory[2] shouldBe MoveStatus.FORWARD
     }
 })

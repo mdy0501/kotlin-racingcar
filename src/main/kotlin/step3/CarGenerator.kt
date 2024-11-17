@@ -1,11 +1,7 @@
 package step3
 
-class CarGenerator {
+object CarGenerator {
     fun generate(count: Int): List<Car> {
-        val cars = mutableListOf<Car>()
-        for (i in 1..count) {
-            cars.add(Car(number = i))
-        }
-        return cars
+        return List(count) { index -> Car(number = index + 1) }
     }
 }
