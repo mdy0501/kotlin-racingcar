@@ -1,11 +1,11 @@
-package step3
+package step4
 
 class RacingGame {
     fun execute(
-        carCount: Int,
+        carNames: List<String>,
         moveCount: Int,
     ) {
-        val cars = CarGenerator.generate(count = carCount)
+        val cars = CarGenerator.generate(carNames = carNames)
         val completedCars = RacingProcessor.race(moveCount = moveCount, cars = cars)
         ResultPrinter.print(moveCount = moveCount, cars = completedCars)
     }
