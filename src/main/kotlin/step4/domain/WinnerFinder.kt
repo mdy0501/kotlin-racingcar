@@ -1,4 +1,4 @@
-package step4
+package step4.domain
 
 object WinnerFinder {
     fun get(cars: List<Car>): List<String> {

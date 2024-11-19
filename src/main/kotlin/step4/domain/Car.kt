@@ -1,4 +1,4 @@
-package step4
+package step4.domain
 
 class Car private constructor(
     val name: String,
@@ -16,9 +16,8 @@ class Car private constructor(
         return moveStatus
     }
 
-    private fun addHistory(moveStatus: MoveStatus): Car {
+    private fun addHistory(moveStatus: MoveStatus) {
         _moveHistory.add(moveStatus)
-        return this
     }
 
     fun getForwardMoveCount(): Int {

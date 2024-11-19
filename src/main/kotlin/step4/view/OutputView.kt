@@ -1,15 +1,10 @@
-package step4
+package step4.view
 
-object ResultPrinter {
-    fun print(
-        moveCount: Int,
-        cars: List<Car>,
-    ) {
-        this.printRacingResult(moveCount, cars)
-        this.printWinners(cars)
-    }
+import step4.domain.Car
+import step4.domain.WinnerFinder
 
-    private fun printRacingResult(
+object OutputView {
+    fun printRacingResult(
         moveCount: Int,
         cars: List<Car>,
     ) {
@@ -22,8 +17,8 @@ object ResultPrinter {
         }
     }
 
-    private fun printWinners(cars: List<Car>) {
-        val winners = WinnerFinder.get(cars = cars)
+    fun printWinners(cars: List<Car>) {
+        val winners = WinnerFinder.get(cars)
         println("최종 우승자: ${winners.joinToString()}")
     }
 }
