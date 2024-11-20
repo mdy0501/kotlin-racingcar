@@ -24,8 +24,8 @@ class Car private constructor(
         return this.moveHistory.filter { it == MoveStatus.FORWARD }.size
     }
 
-    fun getForwardMoveHistory(n: Int): String {
-        return this.moveHistory.take(n).filter { it == MoveStatus.FORWARD }.joinToString("") { it.display }
+    fun getForwardMoveHistory(n: Int): List<MoveStatus> {
+        return this.moveHistory.take(n).filter { it == MoveStatus.FORWARD }
     }
 
     companion object {

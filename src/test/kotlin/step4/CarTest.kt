@@ -117,28 +117,30 @@ class CarTest : FunSpec({
     }
 
     context("getForwardMoveHistory() 테스트") {
-        test("getForwardMoveHistory()는 4번의 전진 기록이 있을 때, 그 기록을 `----`으로 반환해야 한다.") {
+        test("getForwardMoveHistory()는 4번의 전진 기록이 있을 때, size가 4이고, 모두 FORWARD인 List<MoveStatus>를 리턴한다.") {
             // given
-            val givenForwardMoveFactor = 9
-            val givenCar = CarStub.get(forwordMoveCount = givenForwardMoveFactor)
+            val givenForwardMoveCount = 4
+            val givenCar = CarStub.get(forwordMoveCount = givenForwardMoveCount)
 
             // when
             val forwardMoveHistory = givenCar.getForwardMoveHistory(4)
 
             // then
-            forwardMoveHistory shouldBe "----"
+            forwardMoveHistory.size shouldBe 4
+            forwardMoveHistory.all { it == MoveStatus.FORWARD } shouldBe true
         }
 
-        test("getForwardMoveHistory()는 전진 기록이 없을때, 그 기록을 빈문자열(``)로 반환해야 한다.") {
+        test("getForwardMoveHistory()는 5번의 정지 기록만 있을 때, size가 0인 List<MoveStatus>를 리턴한다.") {
             // given
-            val givenStayMoveFactor = 1
-            val givenCar = CarStub.get(stayMoveCount = givenStayMoveFactor)
+            val givenForwardMoveCount = 0
+            val givenStayMoveCount = 5
+            val givenCar = CarStub.get(forwordMoveCount = givenForwardMoveCount, stayMoveCount = givenStayMoveCount)
 
             // when
-            val forwardMoveHistory = givenCar.getForwardMoveHistory(4)
+            val forwardMoveHistory = givenCar.getForwardMoveHistory(5)
 
             // then
-            forwardMoveHistory shouldBe ""
+            forwardMoveHistory.size shouldBe 0
         }
     }
 })
